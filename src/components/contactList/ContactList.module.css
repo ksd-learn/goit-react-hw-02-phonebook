@@ -1,0 +1,13 @@
+.user {
+    display: flex;
+    
+    margin-top: 10px;
+
+    & p {
+        width: 180px;
+    }
+}
+
+.btn {
+    font-size: 11px;
+}
