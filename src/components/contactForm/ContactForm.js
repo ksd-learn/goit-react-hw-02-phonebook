@@ -17,11 +17,19 @@ export class ContactForm extends Component {
 
     handlSubmit = (event) => {
         event.preventDefault();
-        this.props.addContact({ ...this.state });
-        this.setState({
-            name: "",
-            number: ""
-        })
+        let res = this.props.namesContact.includes(this.state.name);
+        if (res) {
+            alert(`${res.name} is already in contacts`)
+            this.setState({
+                name: ""
+            })
+        } else {
+            this.props.addContact({ ...this.state });
+            this.setState({
+                name: "",
+                number: ""
+            })
+        }
     };
 
     render() {
@@ -29,7 +37,7 @@ export class ContactForm extends Component {
         const { name, number } = this.state;
 
         return (
-            <form className={css.addForm} onSubmit={this.handlSubmit}>
+            <form className={css.addForm}>
                 <label className={css.label}>
                     <p>Name</p>
                     <input
@@ -48,12 +56,13 @@ export class ContactForm extends Component {
                         required
                     />
                 </label>
-                <button className={css.btn}>Add contact</button>
+                <button className={css.btn} type="submit" onClick={this.handlSubmit}>Add contact</button>
             </form>
         )
     };
 }
 
 ContactForm.propTypes = {
-  addContact: PropTypes.func.isRequired
+    addContact: PropTypes.func.isRequired,
+    namesContact: PropTypes.arrayOf(PropTypes.string.isRequired)
 };

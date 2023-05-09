@@ -1,15 +1,14 @@
+import { UserContact } from '../userContact/UserContact';
 import css from './ContactList.module.css';
 import PropTypes from 'prop-types';
 
 export const ContactList = ({ contactSeach, deleteContacts }) => {
-
     return (
         <ul> 
             {contactSeach.map(({name, number, id}) => {
                 return (
                     <li className={css.user} key={id}>
-                        <p>Name:  {name}</p>
-                        <p>Number:  {number}</p>
+                        <UserContact name={name} number={number} />
                         <button className={css.btn} onClick={() => {deleteContacts(id)}}>Delete</button>
                     </li>
                 );

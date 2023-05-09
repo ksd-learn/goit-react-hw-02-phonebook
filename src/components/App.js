@@ -18,17 +18,12 @@ export class App extends Component {
   };
 
   addContact = (userData) => {
-    let res = this.state.contacts.find(user => user.name === userData.name);
-    if (res) {
-      alert(`${res.name} is already in contacts`)
-    } else {
       const newUser = { ...userData, id: nanoid() };
       this.setState(
         (prevstate) => {
           return { contacts: [...prevstate.contacts, newUser] }
         }
       )
-    }
   };
   
   deleteContacts = (id) => {
@@ -53,11 +48,12 @@ export class App extends Component {
 
     const { contacts, filter } = this.state;
     const contactSeach = contacts.filter((user) => this.filterContact(user.name, filter));
+    const namesContact = contacts.map(user => user.name);
 
     return (
       <div className={css.phonebook}>
         <h1>Phonebook</h1>
-        <ContactForm addContact={this.addContact} />
+        <ContactForm addContact={this.addContact} namesContact={namesContact} />
 
         <h2>Contacts</h2>
         <Filter handleChangeFilter={this.handleChangeFilter} filter={filter} />
